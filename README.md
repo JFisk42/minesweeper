@@ -1,1 +1,1 @@
-# minesweeper
+# minesweeper app
