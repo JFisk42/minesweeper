@@ -17,7 +17,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_02_223535) do
     t.integer "height"
     t.integer "mine_count"
     t.text "name"
-    t.datetime "created"
+    t.datetime "created" # TODO: Can remove because of auto gen rails created/updated at cols
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

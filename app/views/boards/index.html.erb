@@ -1,1 +1,9 @@
-<h1>Board generation goes here</h1>
+<h1>Boards</h1>
+
+<ul>
+  <% @boards.each do |board| %>
+    <li>
+      <%= board.name %>
+    </li>
+  <% end %>
+</ul>
