@@ -13,16 +13,4 @@
   <% end %>
 </ul>
 
-<h2>10 recent boards go here with details and link for each</h2>
-<ul>
-  <% @boards.each do |board| %>
-    <li>
-      <a href="<%= board_path(board) %>">
-        <%= board.name %></a>
-      <%= board.email %>
-      <%= board.height %>
-      <%= board.width %>
-      <%= board.mine_count %>
-    </li>
-  <% end %>
-</ul>
+<%= link_to "Return Home", boards_path %>

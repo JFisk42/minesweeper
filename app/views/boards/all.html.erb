@@ -1,6 +1,5 @@
-<h1>Boards INDEX</h1>
+<h1>ALL Boards</h1>
 
-<h2>10 recent boards go here with details and link for each</h2>
 <ul>
   <% @boards.each do |board| %>
     <li>
@@ -15,5 +14,4 @@
   <% end %>
 </ul>
 
-<%= link_to "Generate New Board", new_board_path %>
-<%= link_to "View All Boards", boards_all_path %>
+<%= link_to "Return Home", boards_path %>

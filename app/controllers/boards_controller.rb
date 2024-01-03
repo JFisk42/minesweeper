@@ -1,25 +1,23 @@
 class BoardsController < ApplicationController
   def index
+    @boards = Board.all.last(10)
+  end
+
+  def all
     @boards = Board.all
   end
 
   def show
     @board = Board.find(params[:id])
-    @boards = Board.all.last(10)
+    # @boards = Board.all.last(10)
   end
 
   def new
     @board = Board.new
-    # generate_board("a board for the ages", 10, 10, 10, "test@gmail.com")
   end
 
-  # bundle exec rdbg --open -n -c -- bundle exec rails s
-
   def create
-    # @board = Board.new(name: "a board for the ages", height: 10, width: 10, mine_count: 10, email: "test@gmail.com")
     @board = Board.new(board_params)
-
-    #for whatever reason it's not passing in the parameters and isn't bubbling up error messages
 
     if @board.save
       generate_board
@@ -39,6 +37,7 @@ class BoardsController < ApplicationController
       mine_place = []
       iterator = 0
       
+      # TODO add logic to avoid infinite loops
       while iterator < @board.mine_count do #don't need while, switch to for/each
         new_mine = rand(grid_area)
         unless mine_place.include? new_mine
@@ -50,7 +49,7 @@ class BoardsController < ApplicationController
       mine_place.sort!
       outer_iterator = 0
 
-      for index in 0..@board.height do
+      for i in 1..@board.height do
         
         inner_iterator = 0
         board_grid = []
