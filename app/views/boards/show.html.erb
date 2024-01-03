@@ -1,7 +1,28 @@
-<h1>Boards SHOW</h1>
-
 <h1><%= @board.name %></h1>
 
-<p><%= @board.mine_count %></p>
+<p><%= "Width: #{@board.width}" %></p>
+<p><%= "Height: #{@board.height}" %></p>
+<p><%= "Mine Count: #{@board.mine_count}" %></p>
+<p><%= "Email: #{@board.email}" %></p>
 
-<p><%= @message %></p>
+<ul>
+  <% @board.rows.each do |row| %>
+    <li>
+      <%= row.row_content %>
+    </li>
+  <% end %>
+</ul>
+
+<h2>10 recent boards go here with details and link for each</h2>
+<ul>
+  <% @boards.each do |board| %>
+    <li>
+      <a href="<%= board_path(board) %>">
+        <%= board.name %></a>
+      <%= board.email %>
+      <%= board.height %>
+      <%= board.width %>
+      <%= board.mine_count %>
+    </li>
+  <% end %>
+</ul>

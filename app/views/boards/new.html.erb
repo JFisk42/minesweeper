@@ -1,3 +1,47 @@
 <h1>Boards NEW</h1>
 
-"What settings would you like for your new board?"
+<%= form_with model: @board do |form| %>
+  <div>
+    <%= form.label :name, "Minesweeper Board Name" %><br>
+    <%= form.text_field :name %>
+    <% @board.errors.full_messages_for(:name).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+  
+  <div>
+    <%= form.label :email, "Email Address" %><br>
+    <%= form.text_field :email %>
+    <% @board.errors.full_messages_for(:email).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.label :height, "Board Height" %><br>
+    <%= form.text_field :height %>
+    <% @board.errors.full_messages_for(:height).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.label :width, "Board Width" %><br>
+    <%= form.text_field :width %>
+    <% @board.errors.full_messages_for(:width).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.label :mine_count, "Number of Mines in Board" %><br>
+    <%= form.text_field :mine_count %>
+    <% @board.errors.full_messages_for(:mine_count).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
