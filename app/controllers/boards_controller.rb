@@ -35,11 +35,11 @@ class BoardsController < ApplicationController
       mine_locations = create_mine_locations  
       
       total_grid_iterator = 0
+      board_grid = Array.new(@board.width) {Array.new(@board.height)}
 
-      for column_index in 1..@board.height do
+      for column_index in 0..(@board.height-1) do
         
         row_iterator = 0
-        board_grid = [][]
           
         while row_iterator < @board.width do
           
