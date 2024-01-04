@@ -9,7 +9,6 @@ class BoardsController < ApplicationController
 
   def show
     @board = Board.find(params[:id])
-    # @boards = Board.all.last(10)
   end
 
   def new
@@ -33,45 +32,51 @@ class BoardsController < ApplicationController
     end
 
     def generate_board
-      grid_area = @board.height * @board.width
-      mine_place = []
-      iterator = 0
+      mine_locations = create_mine_locations  
       
-      # TODO add logic to avoid infinite loops
-      while iterator < @board.mine_count do #don't need while, switch to for/each
-        new_mine = rand(grid_area)
-        unless mine_place.include? new_mine
-          mine_place << new_mine
-          iterator = iterator + 1
-        end
-      end
+      total_grid_iterator = 0
 
-      mine_place.sort!
-      outer_iterator = 0
-
-      for i in 1..@board.height do
+      for column_index in 1..@board.height do
         
-        inner_iterator = 0
-        board_grid = []
+        row_iterator = 0
+        board_grid = [][]
           
-        while inner_iterator < @board.width do #need to check for off by one
+        while row_iterator < @board.width do
           
-          if mine_place.include? outer_iterator
-            board_grid << '💣' 
+          if mine_locations.include? total_grid_iterator
+            board_grid[column_index] << '💣' 
           else
-            board_grid << '⬜️' 
+            board_grid[column_index] << '⬜️' 
           end
 
-          inner_iterator = inner_iterator + 1
-          outer_iterator = outer_iterator + 1
+          row_iterator = row_iterator + 1
+          total_grid_iterator = total_grid_iterator + 1
         end
-
-        combined_row = board_grid.join("")
-        # new_row = Row.new(board: @board, row_index: inner_iterator, col_index: 1, row_content: combined_row) #col index is only used for width > 250ish, hardcode for now
-        new_row = @board.rows.new(row_index: inner_iterator, col_index: 1, row_content: combined_row) #col index is only used for width > 250ish, hardcode for now
+        
+        combined_row = board_grid[column_index].join("") #row_index needs its own iterator, but also maybe db is just chill with extra long strings? need to investigate
+        new_row = @board.rows.new(row_index: row_iterator, col_index: 1, row_content: combined_row) #col index is only used for width > 250ish, hardcode for now
         new_row.save
+        # TODO Error handling
         # render :new, status: :unprocessable_entity unless new_row.save #need to make these transactions happen together, especially with multiple rows coming up
       end
-            
     end
+
+    def create_mine_locations 
+      grid_area = @board.height * @board.width
+      raise error, "illegal board" if @board.mine_count > grid_area
+      
+      mine_locations = []
+      index = 0
+
+      while index < @board.mine_count do 
+        new_mine = rand(grid_area)
+        unless mine_locations.include? new_mine
+          mine_locations << new_mine
+          index = index + 1
+        end
+      end
+
+      mine_locations.sort #what if this was all that we saved in the db for each row, perf improvements?
+    end
+
 end
