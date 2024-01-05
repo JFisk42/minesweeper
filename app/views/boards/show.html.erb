@@ -2,16 +2,18 @@
 
 <div class="container">
   <h1><%= @board.name %></h1>
-  <ul class="list-group list-group-horizontal">
-    <li class="list-group-item"><%= "Width: #{@board.width}" %></li>
-    <li class="list-group-item"><%= "Height: #{@board.height}" %></li>
-    <li class="list-group-item"><%= "Mine Count: #{@board.mine_count}" %></li>
-    <li class="list-group-item"><%= "Creator Email: #{@board.email}" %></li>
+  <ul>
+    <li><%= "Width: #{@board.width}" %></li>
+    <li><%= "Height: #{@board.height}" %></li>
+    <li><%= "Mine Count: #{@board.mine_count}" %></li>
+    <li><%= "Creator Email: #{@board.email}" %></li>
   </ul>
 
-  <ul>
+  <div class="board">
     <% @board.rows.each do |row| %>
-      <br> <%= row.row_content %>
+      <div class="board-rows">
+        <%= row.row_content %>
+      </div>
     <% end %>
-  </ul>
+  </div>
 </div>

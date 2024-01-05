@@ -3,47 +3,47 @@
 <div class="container">
   <h1>Create a New Minesweeper Board</h1>
   <%= form_with model: @board do |form| %>
-    <div class="mb-3">
-      <%= form.label :name, "Minesweeper Board Name", { class: "form-label" } %><br>
+    <div class="input-div">
+      <%= form.label :name, "Minesweeper Board Name", { class: "form-label" } %>
       <%= form.text_field :name, { class: "form-control" } %>
       <% @board.errors.full_messages_for(:name).each do |message| %>
-        <div><%= message %></div>
+        <div class="error-message"><%= message %></div>
       <% end %>
     </div>
     
-    <div>
-      <%= form.label :email, "Email Address", { class: "form-label" } %><br>
+    <div class="input-div">
+      <%= form.label :email, "Email Address", { class: "form-label" } %>
       <%= form.text_field :email, { class: "form-control" } %>
       <% @board.errors.full_messages_for(:email).each do |message| %>
-        <div><%= message %></div>
+        <div class="error-message"><%= message %></div>
       <% end %>
     </div>
 
-    <div>
-      <%= form.label :height, "Board Height", { class: "form-label" } %><br>
+    <div class="input-div">
+      <%= form.label :height, "Board Height", { class: "form-label" } %>
       <%= form.text_field :height, { class: "form-control" } %>
       <% @board.errors.full_messages_for(:height).each do |message| %>
-        <div><%= message %></div>
+        <div class="error-message"><%= message %></div>
       <% end %>
     </div>
 
-    <div>
-      <%= form.label :width, "Board Width", { class: "form-label" } %><br>
+    <div class="input-div">
+      <%= form.label :width, "Board Width", { class: "form-label" } %>
       <%= form.text_field :width, { class: "form-control" } %>
       <% @board.errors.full_messages_for(:width).each do |message| %>
-        <div><%= message %></div>
+        <div class="error-message"><%= message %></div>
       <% end %>
     </div>
 
-    <div>
-      <%= form.label :mine_count, "Number of Mines in Board", { class: "form-label" } %><br>
+    <div class="input-div">
+      <%= form.label :mine_count, "Number of Mines in Board", { class: "form-label" } %>
       <%= form.text_field :mine_count, { class: "form-control" } %>
       <% @board.errors.full_messages_for(:mine_count).each do |message| %>
-        <div><%= message %></div>
+        <div class="error-message"><%= message %></div>
       <% end %>
     </div>
 
-    <div>
+    <div class="button-div">
       <%= form.submit "Generate Board", { class: "btn btn-primary" } %> 
     </div>
   <% end %>
