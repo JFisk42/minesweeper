@@ -13,6 +13,7 @@
 .board-rows {
   padding-top: 0px;
   word-break: keep-all;
+  white-space: nowrap;
 }
 
 .error-message {
