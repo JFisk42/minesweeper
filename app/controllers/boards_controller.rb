@@ -1,6 +1,5 @@
 class BoardsController < ApplicationController
 
-  # TODO docs, lots of docs
   def index
     @boards = Board.all.last(10)
   end
@@ -21,7 +20,7 @@ class BoardsController < ApplicationController
     @board = Board.new(board_params)
 
     if @board.save
-      generate_board
+      generate_board(@board)
       redirect_to @board
     else
       render :new, status: :unprocessable_entity
@@ -33,17 +32,23 @@ class BoardsController < ApplicationController
       params.require(:board).permit(:name, :height, :width, :mine_count, :email)
     end
 
-    def generate_board
-      mine_locations = create_mine_locations  
+    # Creates a series of row objects by first generating a 2D array of the board. 
+    # Adds in randomized mines according to the number specified.
+    #
+    # @param board [Board] model of the board the grid will be generated for
+    #
+    # @renders 422 Unprocessable Entity if the save for a row object fails. 
+    def generate_board(board)
+      mine_locations = create_mine_locations(board.height * board.width, board.mine_count)
       
       total_grid_iterator = 0
-      board_grid = Array.new(@board.height) {Array.new(@board.width)}
+      board_grid = Array.new(board.height) {Array.new(board.width)}
 
-      for column_index in 0..(@board.height-1) do
+      for column_index in 0..(board.height-1) do
         
         row_iterator = 0
           
-        while row_iterator < @board.width do
+        while row_iterator < board.width do
           
           if mine_locations.include? total_grid_iterator
             board_grid[column_index] << '💣' 
@@ -56,16 +61,22 @@ class BoardsController < ApplicationController
         end
         
         combined_row = board_grid[column_index].join("") 
-        new_row = @board.rows.new(row_index: row_iterator, col_index: 1, row_content: combined_row) 
-        new_row.save
-        # TODO Error handling
-        # render :new, status: :unprocessable_entity unless new_row.save #need to make these transactions happen together, especially with multiple rows coming up
+        new_row = board.rows.new(row_index: row_iterator, row_content: combined_row) 
+        unless new_row.save
+          render :new, status: :unprocessable_entity 
+        end
       end
     end
 
-    def create_mine_locations 
-      grid_area = @board.height * @board.width
-      raise error, "illegal board" if @board.mine_count > grid_area
+    # Randomly generates the locations for the number of mines specified.
+    # 
+    # @param grid_area [Integer] the area of the board
+    # @param mine_count [Integer] the number of mines to fit in the grid area
+    #
+    # @raises ArgumentError if the number of mines is larger than the overall grid area.
+    # @return [Array] returns an array representing mine locations in ascending order.
+    def create_mine_locations(grid_area, mine_count)
+      raise ArgumentError, "illegal board" if mine_count > grid_area
       
       mine_locations = []
       index = 0
