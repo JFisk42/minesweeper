@@ -1,4 +1,6 @@
 class BoardsController < ApplicationController
+
+  # TODO docs, lots of docs
   def index
     @boards = Board.all.last(10)
   end
@@ -76,7 +78,6 @@ class BoardsController < ApplicationController
         end
       end
 
-      mine_locations.sort #what if this was all that we saved in the db for each row, perf improvements?
+      mine_locations.sort
     end
-
 end

@@ -1,11 +1,14 @@
 class Board < ApplicationRecord
   validates :name, presence: true, length: { maximum: 1000 }
   validates :email, presence: true, length: { maximum: 100 } 
+
+  # TODO DOCS
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
   validates :height, :width, presence: true, numericality: { greater_than_or_equal_to: 1 }
   validates :mine_count, presence: true
   validate :mine_count_size
 
+  # TODO DOCS
   def mine_count_size
     return unless mine_count
 
