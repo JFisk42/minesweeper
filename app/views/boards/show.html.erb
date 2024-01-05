@@ -1,16 +1,17 @@
-<h1><%= @board.name %></h1>
+<%= render partial: "shared/navbar" %>
 
-<p><%= "Width: #{@board.width}" %></p>
-<p><%= "Height: #{@board.height}" %></p>
-<p><%= "Mine Count: #{@board.mine_count}" %></p>
-<p><%= "Email: #{@board.email}" %></p>
+<div class="container">
+  <h1><%= @board.name %></h1>
+  <ul class="list-group list-group-horizontal">
+    <li class="list-group-item"><%= "Width: #{@board.width}" %></li>
+    <li class="list-group-item"><%= "Height: #{@board.height}" %></li>
+    <li class="list-group-item"><%= "Mine Count: #{@board.mine_count}" %></li>
+    <li class="list-group-item"><%= "Email: #{@board.email}" %></li>
+  </ul>
 
-<ul>
-  <% @board.rows.each do |row| %>
-    <li>
-      <%= row.row_content %>
-    </li>
-  <% end %>
-</ul>
-
-<%= link_to "Return Home", boards_path %>
+  <ul>
+    <% @board.rows.each do |row| %>
+      <br> <%= row.row_content %>
+    <% end %>
+  </ul>
+</div>

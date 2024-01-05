@@ -1,19 +1,31 @@
-<h1>Boards INDEX</h1>
+<%= render partial: "shared/navbar" %>
 
-<h2>10 recent boards go here with details and link for each</h2>
-<ul>
-  <% @boards.each do |board| %>
-    <li>
-      <a href="<%= board_path(board) %>">
-        <%= board.name %></a>
-      <%= board.email %>
-      <%= board.height %>
-      <%= board.width %>
-      <%= board.mine_count %>
-      <%= board.created %>
-    </li>
-  <% end %>
-</ul>
+<div class="container">
+  <h1>Most Recent Minesweeper Boards</h1>
 
-<%= link_to "Generate New Board", new_board_path %>
-<%= link_to "View All Boards", boards_all_path %>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Board Name</th>
+        <th scope="col">Creator Email</th>
+        <th scope="col">Width</th>
+        <th scope="col">Height</th>
+        <th scope="col">Mine Count</th>
+        <th scope="col">Created</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @boards.each do |board| %>
+        <tr>
+          <th scope="row"><a href="<%= board_path(board) %>">
+          <%= board.name %></a></th>
+          <td><%= board.email %></td>
+          <td><%= board.width %></td>
+          <td><%= board.height %></td>
+          <td><%= board.mine_count %></td>
+          <td><%= board.created_at %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

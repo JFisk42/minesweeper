@@ -1,49 +1,50 @@
-<h1>Boards NEW</h1>
+<%= render partial: "shared/navbar" %>
 
-<%= form_with model: @board do |form| %>
-  <div>
-    <%= form.label :name, "Minesweeper Board Name" %><br>
-    <%= form.text_field :name %>
-    <% @board.errors.full_messages_for(:name).each do |message| %>
-      <div><%= message %></div>
-    <% end %>
-  </div>
-  
-  <div>
-    <%= form.label :email, "Email Address" %><br>
-    <%= form.text_field :email %>
-    <% @board.errors.full_messages_for(:email).each do |message| %>
-      <div><%= message %></div>
-    <% end %>
-  </div>
+<div class="container">
+  <h1>Boards NEW</h1>
+  <%= form_with model: @board do |form| %>
+    <div class="mb-3">
+      <%= form.label :name, "Minesweeper Board Name", { class: "form-label" } %><br>
+      <%= form.text_field :name, { class: "form-control" } %>
+      <% @board.errors.full_messages_for(:name).each do |message| %>
+        <div><%= message %></div>
+      <% end %>
+    </div>
+    
+    <div>
+      <%= form.label :email, "Email Address", { class: "form-label" } %><br>
+      <%= form.text_field :email, { class: "form-control" } %>
+      <% @board.errors.full_messages_for(:email).each do |message| %>
+        <div><%= message %></div>
+      <% end %>
+    </div>
 
-  <div>
-    <%= form.label :height, "Board Height" %><br>
-    <%= form.text_field :height %>
-    <% @board.errors.full_messages_for(:height).each do |message| %>
-      <div><%= message %></div>
-    <% end %>
-  </div>
+    <div>
+      <%= form.label :height, "Board Height", { class: "form-label" } %><br>
+      <%= form.text_field :height, { class: "form-control" } %>
+      <% @board.errors.full_messages_for(:height).each do |message| %>
+        <div><%= message %></div>
+      <% end %>
+    </div>
 
-  <div>
-    <%= form.label :width, "Board Width" %><br>
-    <%= form.text_field :width %>
-    <% @board.errors.full_messages_for(:width).each do |message| %>
-      <div><%= message %></div>
-    <% end %>
-  </div>
+    <div>
+      <%= form.label :width, "Board Width", { class: "form-label" } %><br>
+      <%= form.text_field :width, { class: "form-control" } %>
+      <% @board.errors.full_messages_for(:width).each do |message| %>
+        <div><%= message %></div>
+      <% end %>
+    </div>
 
-  <div>
-    <%= form.label :mine_count, "Number of Mines in Board" %><br>
-    <%= form.text_field :mine_count %>
-    <% @board.errors.full_messages_for(:mine_count).each do |message| %>
-      <div><%= message %></div>
-    <% end %>
-  </div>
+    <div>
+      <%= form.label :mine_count, "Number of Mines in Board", { class: "form-label" } %><br>
+      <%= form.text_field :mine_count, { class: "form-control" } %>
+      <% @board.errors.full_messages_for(:mine_count).each do |message| %>
+        <div><%= message %></div>
+      <% end %>
+    </div>
 
-  <div>
-    <%= form.submit %> <%# Need to adjust the title of the button to "Generate Board" %>
-  </div>
-<% end %>
-
-<%= link_to "Return Home", boards_path %>
+    <div>
+      <%= form.submit "Generate Board", { class: "btn btn-primary" } %> 
+    </div>
+  <% end %>
+</div>
