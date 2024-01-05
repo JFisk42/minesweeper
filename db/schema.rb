@@ -11,13 +11,16 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.1].define(version: 2024_01_02_223535) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "boards", force: :cascade do |t|
     t.text "email"
     t.integer "width"
     t.integer "height"
     t.integer "mine_count"
     t.text "name"
-    t.datetime "created" # TODO: Can remove because of auto gen rails created/updated at cols
+    t.datetime "created"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
