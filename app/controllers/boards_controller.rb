@@ -35,7 +35,7 @@ class BoardsController < ApplicationController
       mine_locations = create_mine_locations  
       
       total_grid_iterator = 0
-      board_grid = Array.new(@board.width) {Array.new(@board.height)}
+      board_grid = Array.new(@board.height) {Array.new(@board.width)}
 
       for column_index in 0..(@board.height-1) do
         
@@ -53,8 +53,8 @@ class BoardsController < ApplicationController
           total_grid_iterator = total_grid_iterator + 1
         end
         
-        combined_row = board_grid[column_index].join("") #row_index needs its own iterator, but also maybe db is just chill with extra long strings? need to investigate
-        new_row = @board.rows.new(row_index: row_iterator, col_index: 1, row_content: combined_row) #col index is only used for width > 250ish, hardcode for now
+        combined_row = board_grid[column_index].join("") 
+        new_row = @board.rows.new(row_index: row_iterator, col_index: 1, row_content: combined_row) 
         new_row.save
         # TODO Error handling
         # render :new, status: :unprocessable_entity unless new_row.save #need to make these transactions happen together, especially with multiple rows coming up
